@@ -270,31 +270,53 @@ LB2 - Hands on:
 
 25-Sicherheit (Fragen)
 
-  Was ist der Unterschied zwischen einem Web Server und einen Reverse Proxy?
+    Was ist der Unterschied zwischen einem Web Server und einen Reverse Proxy?
     Ein Webserver liefert HTML-Seiten direkt an den Benutzer. Ein Reverse Proxy steht davor und leitet die Anfragen an den eigentlichen Webserver weiter.
   
-  Was verstehen wir unter einer "White List"?
+    Was verstehen wir unter einer "White List"?
     Eine White List enthält vertrauenswürdige Elemente, zum Beispiel Server, während eine Black List unerwünschte Elemente sperrt.
 
-  Was wäre die Alternative zum Absichern der einzelnen Server mit einer Firewall?
-      Eine Zentrale Firewall
+    Was wäre die Alternative zum Absichern der einzelnen Server mit einer Firewall?
+    Eine Zentrale Firewall
 
-  Was ist der Unterschied zwischen der id_rsa und id_rsa.pub Datei?
-     Private und Public Key
+    Was ist der Unterschied zwischen der id_rsa und id_rsa.pub Datei?
+    Private und Public Key
 
-  Wo darf ein SSH Tunnel nicht angewendet werden?
-     In der Firma
+    Wo darf ein SSH Tunnel nicht angewendet werden?
+    In der Firma
 
-  Für was dient die Datei authorized_keys?
+    Für was dient die Datei authorized_keys?
     Sie enthält die öffentlichen Schlüssel aller Benutzer, die sich ohne Passwort am System anmelden dürfen.
   
-  Für was dient die Datei known_hosts?
+    Für was dient die Datei known_hosts?
     Die Datei speichert die öffentlichen Schlüssel von Servern, mit denen ich mich per SSH verbunden habe. Dadurch kann mein System prüfen, ob der Server wirklich derselbe ist wie beim letzten Verbindungsaufbau, und mich vor möglichen Man-in-the-Middle-Angriffen warnen.
 
 25-Sicherheit (README.md)
 
+    Firewall & Reverse Proxy:
+    Steht eine VM direkt im Internet, sind alle Dienste offen zugänglich und damit unsicher. Eine Firewall blockiert unerwünschte Verbindungen, und ein Reverse Proxy leitet Anfragen weiter, ohne die echte Serveradresse preiszugeben.
+
+    UFW Firewall:
+    UFW ist ein einfaches Kommandozeilen-Tool, um die Linux-Firewall zu konfigurieren. Es ist eine leicht verständliche Oberfläche für das komplexere System iptables.
+
+    Zuerst habe ich UFW installiert und anschliessend die Firewall aktiviert:
+    
+  ![UFW installieren](<ufw install.png>)
+  ![UFW aktivieren](<ufw enable.png>)
+
+    Wichtig für später das ich mich nicht einsperre, muss Port erlaubt werden:
+  ![SSH erlauben](<ssh erlauben.png>)
 
 
+    Anschliessend habe ich FireWall Regeln konfiguriert:
+  ![Status Ports](<fw ports status.png>)
+
+
+
+    Reverse Proxy:
+    Hier habe ich Apache als Reverse Proxy installiert.
+    Zuerst die benötigten Pakete installieren. Ich muss aber die vorherigen Ports dafür freigeben, ansonsten kann ich nichts installieren und laufe in einen Fehler (ist mir passiert):
+  ![alt text](fehler.png)
 
 
 
