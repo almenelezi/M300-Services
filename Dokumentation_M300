@@ -28,6 +28,7 @@ Im Formular unter Title eine Bezeichnung vergeben (z.B. MB SSH-Key)
 Den zuvor kopierten Key mit CTRL + V einfügen und auf Add SSH key klicken
 Der Schlüssel (SSH-Key) sollte nun in der übergeordneten Liste auftauchen
 
+![SSH-KEY](ssh-key.png)
 
 Client konfigurieren:
 Terminal (Bash) öffnen
@@ -68,6 +69,8 @@ Repository aktualisieren und Status anzeigen:
   $ git pull
 
   Already up to date.
+
+![Apache](apache.png)
 
 
 Cloud Computing:
@@ -161,7 +164,7 @@ Vagrant:
     Boxen sind bei Vagrant vorkonfigurierte virtuelle Maschinen, also fertige Vorlagen. Sie helfen dabei, Software schneller zu verteilen und Entwicklungsumgebungen rasch einzurichten. Eine Box wird beim ersten Verwenden auf den Computer heruntergeladen und danach lokal gespeichert, sodass sie nicht jedes Mal neu aus dem Internet geladen werden muss.
     Boxen können mit Befehlen wie vagrant box add hinzugefügt und mit vagrant box remove wieder gelöscht werden. Der Name einer Box folgt meist dem Muster Entwickler/Box, zum Beispiel ubuntu/xenial64. Über die Vagrant-Box-Plattform kann man nach bestehenden Boxen suchen oder eigene veröffentlichen.
 
-    
+
 
 
 
