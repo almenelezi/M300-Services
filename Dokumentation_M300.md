@@ -231,23 +231,79 @@ LB2 - Hands on:
   Zuerst bin ich auf GitBash gegangen und in mein Verzeichnis gewechselt und dann mit folgenden Befehlen eine neue VM erstellt:
 ![MyVM-Erstellung](myvm_erstellung.png)
 
-Irgendwie hat sich dann meine VM verfangen und ich konnte nicht fortfahren. Ein einfacher Befehl (vagrant reload--provision) hat dieses Problem gelöst und ich konnte mich dann per ssh verbinden:
+  Irgendwie hat sich dann meine VM verfangen und ich konnte nicht fortfahren. Ein einfacher Befehl (vagrant reload--provision) hat dieses Problem gelöst und ich konnte mich dann per ssh verbinden:
 
 ![Problem gelöst](vagrant-reload.png)
 ![ssh](<vagrant ssh.png>)
 
 
-Anschliessend musste ich die Serverdienste auswählen. Zuerst habe ich Apache installiert und wichtig mt -y ansonsten funktioniert es nicht:
+  Anschliessend musste ich die Serverdienste auswählen. Zuerst habe ich Apache installiert und wichtig mt -y ansonsten funktioniert es nicht:
 
 ![Apache2](apache2.png)
 
-Anschliessend habe ich den Webalizer installiert:
+  Anschliessend habe ich den Webalizer installiert:
 
 ![webalizer](webalizer.png)
-
-Dann habe ich den Befehlsverlauf angezeigt:
+  
+  Dann habe ich den Befehlsverlauf angezeigt:
 
 ![verlauf](image.png)
+
+
+  Jetzt geht es ums Feintuning. Damit der Webalizer etwas auswerten kann, musste ich Traffic erzeugen mit folgenden Befehlen:
+
+![Traffic](<Traffic webalizer.png>)
+
+  Als nächstes musste ich Access Logs von Apache rotieren, weil Webanalyzer nur Archivdaten auswertet:
+
+![Rotate Logs](logs-rotate-webanalizer.png)
+
+  Daraufhin habe ich das Output-Verzeichnis korrigiert und anschliessend eine Webalizer-Ausgabe erzeugt:
+
+![Ausgabe](webalizer-ausgabe.png)
+
+  Zum Schluss noch das Ganze auf Web-Ansicht geöffnet:
+
+![webalizer](webalizer2.png)
+
+
+
+25-Sicherheit (Fragen)
+
+  Was ist der Unterschied zwischen einem Web Server und einen Reverse Proxy?
+    Ein Webserver liefert HTML-Seiten direkt an den Benutzer. Ein Reverse Proxy steht davor und leitet die Anfragen an den eigentlichen Webserver weiter.
+  
+  Was verstehen wir unter einer "White List"?
+    Eine White List enthält vertrauenswürdige Elemente, zum Beispiel Server, während eine Black List unerwünschte Elemente sperrt.
+
+  Was wäre die Alternative zum Absichern der einzelnen Server mit einer Firewall?
+      Eine Zentrale Firewall
+
+  Was ist der Unterschied zwischen der id_rsa und id_rsa.pub Datei?
+     Private und Public Key
+
+  Wo darf ein SSH Tunnel nicht angewendet werden?
+     In der Firma
+
+  Für was dient die Datei authorized_keys?
+    Sie enthält die öffentlichen Schlüssel aller Benutzer, die sich ohne Passwort am System anmelden dürfen.
+  
+  Für was dient die Datei known_hosts?
+    Die Datei speichert die öffentlichen Schlüssel von Servern, mit denen ich mich per SSH verbunden habe. Dadurch kann mein System prüfen, ob der Server wirklich derselbe ist wie beim letzten Verbindungsaufbau, und mich vor möglichen Man-in-the-Middle-Angriffen warnen.
+
+25-Sicherheit (README.md)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
