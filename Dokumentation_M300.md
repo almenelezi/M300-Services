@@ -164,6 +164,91 @@ Vagrant:
     Boxen sind bei Vagrant vorkonfigurierte virtuelle Maschinen, also fertige Vorlagen. Sie helfen dabei, Software schneller zu verteilen und Entwicklungsumgebungen rasch einzurichten. Eine Box wird beim ersten Verwenden auf den Computer heruntergeladen und danach lokal gespeichert, sodass sie nicht jedes Mal neu aus dem Internet geladen werden muss.
     Boxen können mit Befehlen wie vagrant box add hinzugefügt und mit vagrant box remove wieder gelöscht werden. Der Name einer Box folgt meist dem Muster Entwickler/Box, zum Beispiel ubuntu/xenial64. Über die Vagrant-Box-Plattform kann man nach bestehenden Boxen suchen oder eigene veröffentlichen.
 
+    Die ganze Konfiguration wird im Vagrantfile gemacht, das im entsprechenden Ordner liegt. Die Schreibweise orientiert sich an der Programmiersprache Ruby:
+        Vagrant.configure("2") do |config|
+        config.vm.define :apache do |web|
+            web.vm.box = "bento/ubuntu-16.04"
+            web.vm.provision :shell, path: "config_web.sh"
+            web.vm.hostname = "srv-web"
+            web.vm.network :forwarded_port, guest: 80, host: 4567
+            web.vm.network "public_network", bridge: "en0: WLAN (AirPort)"
+    end
+
+
+    Provisioning:
+    Provisioning bedeutet bei Vagrant, dass Anweisungen an ein anderes Programm weitergegeben werden, meist an eine Shell wie Bash. Mit diesen Befehlen kann zum Beispiel automatisch der Webserver Apache installiert werden:
+      config.vm.provision :shell, inline: <<-SHELL 
+        sudo apt-get update
+        sudo apt-get -y install apache2
+     SHELL
+  
+
+    Provider:
+    Der Provider im Vagrantfile legt fest, welche Virtualisierungsplattform verwendet wird, zum Beispiel VirtualBox.
+    config.vm.provider "virtualbox" do |vb|
+        vb.memory = "512"  
+    end
+
+    Box hinzufügen:
+      vagrant box add [box-name]
+
+    In der lokalen Registry vorhandene Boxen anzeigen:
+      vagrant box list
+
+    VM erstellen:
+          mkdir myserver
+      cd myserver
+      vagrant init ubuntu/xenial64
+      vagrant up
+
+    Aktueller Status der VM anzeigen:
+          vagrant status
+    
+    VM updaten:
+          vagrant provision
+    
+    VM löschen:
+          vagrant destroy -f
+
+
+    Synced folders:
+    Synchronisierte Ordner erlauben es der virtuellen Maschine, auf Ordner des Host-Systems zuzugreifen. So kann zum Beispiel das HTML-Verzeichnis des Apache-Webservers mit dem Ordner auf dem Host synchronisiert werden, in dem das Vagrantfile liegt.
+
+        Vagrant.configure(2) do |config|
+        config.vm.synced_folder ".", "/var/www/html"  
+    end
+
+
+Reflexion:
+  Cloud Computing bezeichnet das Ausführen von Programmen auf entfernten Rechnern statt auf dem eigenen Computer. Die Anwendungen und Daten liegen dabei auf Servern im Internet und können von überall aus aufgerufen werden.
+
+  Eine dynamische Infrastruktur-Plattform stellt virtualisierte IT-Ressourcen wie Rechenleistung, Speicher und Netzwerke bereit. Diese werden automatisch und programmgesteuert verwaltet, meist in Form von virtuellen Maschinen.
+
+  Damit Infrastructure as Code auf solchen Plattformen eingesetzt werden kann, müssen bestimmte Voraussetzungen erfüllt sein. Die Infrastruktur muss über Schnittstellen programmierbar sein, damit sie automatisiert gesteuert werden kann. Ressourcen sollen bei Bedarf schnell erstellt oder gelöscht werden können. Nutzer müssen ihre Systeme selbst anpassen können, und ein Wechsel zwischen verschiedenen Anbietern sollte möglich sein. Zudem sind Sicherheitsstandards und Zertifizierungen ein wichtiger Bestandteil.
+
+
+LB2 - Hands on:
+  Zuerst bin ich auf GitBash gegangen und in mein Verzeichnis gewechselt und dann mit folgenden Befehlen eine neue VM erstellt:
+![MyVM-Erstellung](myvm_erstellung.png)
+
+Irgendwie hat sich dann meine VM verfangen und ich konnte nicht fortfahren. Ein einfacher Befehl (vagrant reload--provision) hat dieses Problem gelöst und ich konnte mich dann per ssh verbinden:
+
+![Problem gelöst](vagrant-reload.png)
+![ssh](<vagrant ssh.png>)
+
+
+Anschliessend musste ich die Serverdienste auswählen. Zuerst habe ich Apache installiert und wichtig mt -y ansonsten funktioniert es nicht:
+
+![Apache2](apache2.png)
+
+Anschliessend habe ich den Webalizer installiert:
+
+![webalizer](webalizer.png)
+
+Dann habe ich den Befehlsverlauf angezeigt:
+
+![verlauf](image.png)
+
 
 
 
