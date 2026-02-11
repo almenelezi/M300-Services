@@ -1,322 +1,541 @@
-Repository erstellen:
-Anmelden unter www.github.com
-Innerhalb der Willkommens-Seite auf Start a project klicken
-Unter Repository name einen Name definieren (z.B. M300-Services)
-Optional: kurze Beschreibung eingeben
-Radio-Button bei Public belassen
-Haken bei Initialize this repository with a README setzen
-Auf Create repository klicken
+# M300 – Services & Cloud Computing
+
+---
+
+## Repository erstellen
+
+1. Auf **www.github.com** anmelden  
+2. Auf **Start a project** klicken  
+3. Repository Name definieren (z.B. `M300-Services`)  
+4. Optional Beschreibung eingeben  
+5. **Public** auswählen  
+6. Haken bei **Initialize with README** setzen  
+7. **Create repository** klicken 
 
 
-SSH-Key erstellen (lokal):
-  $  ssh-keygen -t rsa -b 4096 -C "beispiel@beispiel.com"
-    Generating public/private rsa key pair.
-    Enter a file in which to save the key (~/.ssh/id_rsa): [Press enter]
-    Enter passphrase (empty for no passphrase): [Passwort]
-    Enter same passphrase again: [Passwort wiederholen]
+## SSH-Key erstellen (lokal)
+
+```bash
+$ ssh-keygen -t rsa -b 4096 -C "beispiel@beispiel.com"
+Generating public/private rsa key pair.
+Enter a file in which to save the key (~/.ssh/id_rsa): [Press enter]
+Enter passphrase (empty for no passphrase): [Passwort]
+Enter same passphrase again: [Passwort wiederholen]
+```
 
 
-SSH-Key dem SSH-Agent hinzufügen:
-$HOME/.ssh/id_rsa.pub in Zwischenablage kopieren
+## SSH-Key dem SSH-Agent hinzufügen
 
-SSH-Key hinzufügen:
-Anmelden unter www.github.com
-Auf Benutzerkonto klicken (oben rechts) und den Punkt Settings aufrufen
-Unter den Menübereichen auf der linken Seite zum Abschnitt SSH und GPG keys wechseln
-Auf New SSH key klicken
-Im Formular unter Title eine Bezeichnung vergeben (z.B. MB SSH-Key)
-Den zuvor kopierten Key mit CTRL + V einfügen und auf Add SSH key klicken
-Der Schlüssel (SSH-Key) sollte nun in der übergeordneten Liste auftauchen
+Public Key in die Zwischenablage kopieren:
 
-![SSH-KEY](ssh-key.png)
+```bash
+$ cat ~/.ssh/id_rsa.pub
+```
 
-Client konfigurieren:
-Terminal (Bash) öffnen
-Git konfigurieren mit Informationen des GitHub-Accounts:
-  $ git config --global user.name "<username>"
-  $ git config --global user.email "<e-mail>"
-Konfiguration abgeschlossen
+Den angezeigten Schlüssel komplett kopieren.
 
+---
 
-Repository klonen:
-Zu Testzwecken soll ein Repository geklont werden. Dazu sind folgende Befehle notwendig:
-Terminal (Bash) öffnen
-Repository klonen:
-  $ git clone https://gitlab.com/ch-tbz-it/Stud/m300/
-In das M300-Verzeichnis wechseln:
-  $ cd M300
-Repository aktualisieren und Status anzeigen:
-  $ git pull
+## SSH-Key bei GitHub hinzufügen
 
-  Already up to date.
+1. Auf **www.github.com** anmelden  
+2. Oben rechts auf das Benutzerkonto klicken  
+3. **Settings** öffnen  
+4. Links auf **SSH and GPG keys** gehen  
+5. Auf **New SSH key** klicken  
+6. Unter **Title** eine Bezeichnung eingeben (z.B. `M300`)  
+7. Den kopierten Key mit **CTRL + V** einfügen  
+8. Auf **Add SSH key** klicken  
 
-  $ git status
+Der Schlüssel sollte nun in der Liste erscheinen.
 
-  Your branch is up to date with 'origin/master'.
-Die Statusmeldung soll dabei mitteilen, dass das lokale Repository mit dem Originalen übereinstimmt.
+![SSH-KEY](images/ssh-key.png)
 
+## Client konfigurieren
 
-Repository herunterladen & aktualisieren (clone/pull):
-Terminal (Bash) öffnen
-Ordner für Repository im gewünschten Verzeichnis erstellen:
-  $ cd Wohin/auch/immer
-  $ mkdir MeinLokalesRepository
-Repository mit SSH klonen (siehe Webseite des Repositorys unter "Clone or download"):
-  $ git clone git@github.com:<Ihr Name>/my_M300.git
+Terminal (Bash) öffnen und Git mit den Informationen des GitHub-Accounts konfigurieren:
 
-  Cloning into 'my_M300'...
-Repository aktualisieren und Status anzeigen:
-  $ git pull
+```bash
+git config --global user.name "<username>"
+git config --global user.email "<e-mail>"
+```
 
-  Already up to date.
+Konfiguration abgeschlossen.
 
-![Apache](apache.png)
+## Repository klonen (Test)
 
+Zu Testzwecken soll ein Repository geklont werden.
 
-Cloud Computing:
-Was versteht man unter Cloud-Computing?
-Darunter versteht man die Ausführung von Programmen, die nicht auf dem lokalen Rechner installiert sind, sondern auf einem anderen Rechner, der aus der Ferne aufgerufen wird (bspw. über das Internet).
+Terminal (Bash) öffnen und folgende Befehle ausführen:
 
-Was versteht man unter Infrastructure as a Service - IaaS?
-Die Infrastruktur stellt die unterste Schicht im Cloud Computing dar. Der Benutzer greift hier auf bestehende Dienste innerhalb des Systems zu, verwaltet seine Recheninstanzen (virtuelle Maschinen) allerdings weitestgehend selbst.
+```bash
+git clone https://gitlab.com/ch-tbz-it/Stud/m300/
+cd M300
+git pull
+git status
+```
 
-Was ist der Unterschied zur manuellen Installation der VM?
-Automation, Wiederholbarkeit, Dokumentation
+Beispielausgabe:
 
-Was wird mit Vagrant erzeugt?
-Virtuelle Maschinen
+```text
+Already up to date.
 
-Welche der Aussagen treffen zu:
+Your branch is up to date with 'origin/master'.
+```
 
-a. Vagrant ist ein HyperVisor
-b. Vagrant erzeugt virtuelle Maschinen, dabei werden mehrere HyperVisor und Cloud Umgebungen (z.B. AWS) unterstützt.
-c. Vagrant erzeugt Container
-Antwort
- b.
-
-In welchen Bereich des Cloud-Computings ist Vagrant einzuordnen: IaaS, PaaS, SaaS?
-IaaS
-
-Welche Alternativen zu Vagrant bestehen?
- https://alternativeto.net/software/vagrant/
+Die Statusmeldung zeigt, dass das lokale Repository mit dem Original übereinstimmt.
 
 
-Wo Speichert Vagrant seine Konfiguration?
-Vagrantfile
+## Repository herunterladen & aktualisieren (clone/pull)
+
+Terminal (Bash) öffnen.
+
+### Ordner für das Repository erstellen
+
+```bash
+cd Wohin/auch/immer
+mkdir MeinLokalesRepository
+cd MeinLokalesRepository
+```
+
+### Repository mit SSH klonen
+
+```bash
+git clone git@github.com:<IhrName>/my_M300.git
+```
+
+Beispielausgabe:
+
+```text
+Cloning into 'my_M300'...
+```
+
+### Repository aktualisieren und Status prüfen
+
+```bash
+git pull
+```
+
+Beispielausgabe:
+
+```text
+Already up to date.
+```
 
 
-Was bedeutet die Fehlermeldung "A Vagrant environment or target machine is required to run this command."?
-Sie befinden im falschen Verzeichnis, wo keine Vagrantfile vorhanden ist.
+![Apache](images/apache.png)
 
 
-Bei welcher LPI Zertifizierung nützt mir das Vagrant Wissen?
- [DevOps Tools Engineer](https://www.lpi.org/our-certifications/devops-overview)
+# Cloud Computing
+
+## Fragen
+
+### Was versteht man unter Cloud Computing?
+Darunter versteht man die Ausführung von Programmen, die nicht auf dem lokalen Rechner installiert sind, sondern auf einem entfernten Rechner laufen und über das Internet aufgerufen werden.
+
+### Was versteht man unter Infrastructure as a Service (IaaS)?
+IaaS stellt die unterste Schicht im Cloud Computing dar.  
+Der Benutzer greift auf bestehende Infrastruktur wie virtuelle Maschinen, Speicher und Netzwerke zu und verwaltet das Betriebssystem selbst.
+
+### Was ist der Unterschied zur manuellen Installation der VM?
+- Automatisierung
+- Wiederholbarkeit
+- Dokumentation
+
+---
+
+## Vagrant
+
+### Was wird mit Vagrant erzeugt?
+Virtuelle Maschinen.
+
+### Welche der Aussagen treffen zu?
+
+a) Vagrant ist ein Hypervisor  
+b) Vagrant erzeugt virtuelle Maschinen und unterstützt mehrere Hypervisor und Cloud-Umgebungen (z.B. AWS)  
+c) Vagrant erzeugt Container  
+
+**Antwort:**  
+**b)**
+
+### In welchen Bereich des Cloud-Computings ist Vagrant einzuordnen?
+**IaaS**
+
+### Welche Alternativen zu Vagrant bestehen?
+https://alternativeto.net/software/vagrant/
+
+### Wo speichert Vagrant seine Konfiguration?
+Im **Vagrantfile**.
+
+### Was bedeutet die Fehlermeldung  
+"A Vagrant environment or target machine is required to run this command."?
+Man befindet sich im falschen Verzeichnis, in dem kein **Vagrantfile** vorhanden ist.
+
+### Bei welcher LPI-Zertifizierung nützt mir das Vagrant-Wissen?
+[DevOps Tools Engineer](https://www.lpi.org/our-certifications/devops-overview)
 
 
 
 
-    Cloud Computing bedeutet, dass Programme und Daten nicht auf dem eigenen Computer installiert oder gespeichert sind, sondern auf Servern im Internet laufen. Man greift über einen Browser oder eine App darauf zu, ohne selbst etwas installieren oder warten zu müssen. Der Anbieter stellt die nötige Infrastruktur, Plattformen oder fertige Software über das Internet bereit. Diese Cloud-Dienste werden in die drei Modelle IaaS, PaaS und SaaS eingeteilt.
 
 
-    Beim Cloud Computing gibt es verschiedene Arten von Diensten:
-    - Bei IaaS (Infrastructure as a Service) stellt der Anbieter nur die grundlegende Infrastruktur wie virtuelle Server, Speicher und Netzwerk bereit. Der Benutzer verwaltet seine virtuellen Maschinen und das Betriebssystem selbst.
+  ## Cloud Computing
 
-    - Bei PaaS (Platform as a Service) stellt die Cloud bereits eine fertige Plattform zur Verfügung. Der Entwickler lädt nur noch seine Anwendung hoch, während sich die Cloud automatisch um Server, Betriebssystem und Verteilung der Ressourcen kümmert.
+Cloud Computing bedeutet, dass Programme und Daten nicht auf dem eigenen Computer laufen, sondern auf Servern im Internet. Der Zugriff erfolgt über einen Browser oder eine App. Der Anbieter stellt Infrastruktur, Plattformen oder fertige Software bereit.
 
-    - Bei SaaS (Software as a Service) nutzt der Benutzer eine fertige Anwendung über das Internet. Er muss nichts installieren, keine Server verwalten und sich nicht um Speicherung oder Skalierung kümmern.
+### Cloud-Modelle
 
-    Zwischen IaaS und PaaS gibt es zusätzlich CaaS (Container as a Service). Dabei werden Anwendungen in Containern ausgeführt, die auf der Infrastruktur der Cloud laufen. Technologien wie Docker oder Kubernetes sorgen dafür, dass diese Container effizient gestartet, verteilt und verwaltet werden können.
+- **IaaS (Infrastructure as a Service)**  
+  Der Anbieter stellt virtuelle Server, Speicher und Netzwerk bereit.  
+  Der Benutzer verwaltet Betriebssystem und Anwendungen selbst.
 
-    Microsoft Azure basiert auf einer dynamischen Infrastruktur-Plattform. Das bedeutet, dass Rechenleistung, Speicher und Netzwerke virtualisiert und bei Bedarf bereitgestellt werden, meist in Form von virtuellen Maschinen. So können Server schnell erstellt, angepasst oder wieder gelöscht werden.
+- **PaaS (Platform as a Service)**  
+  Eine fertige Plattform wird bereitgestellt.  
+  Der Entwickler lädt nur noch seine Anwendung hoch, alles andere übernimmt die Cloud.
 
-    Solche Plattformen gibt es als Public Cloud über das Internet, als Private Cloud innerhalb eines Unternehmens oder als lokale Virtualisierung auf einem einzelnen Rechner. Wichtig ist, dass die Infrastruktur programmierbar ist, Ressourcen bei Bedarf erstellt werden können, Nutzer sie selbst verwalten können und Sicherheit sowie Zertifizierungen gewährleistet sind.
+- **SaaS (Software as a Service)**  
+  Fertige Anwendungen über das Internet.  
+  Keine Installation oder Wartung notwendig.
 
-    Früher waren IT-Systeme fest an physische Hardware gebunden. Die Einrichtung und Wartung erfolgte manuell und benötigte viel Zeit und Aufwand. Änderungen an der Infrastruktur waren kompliziert und teuer.
-    Heute im Cloud-Zeitalter sind Systeme virtualisiert und nicht mehr direkt an Hardware gebunden. Die Bereitstellung und Wartung erfolgen automatisiert über Software. Dadurch lassen sich Änderungen sehr schnell umsetzen, oft in wenigen Minuten oder Sekunden, was Unternehmen einen schnelleren Marktzugang ermöglicht.
+- **CaaS (Container as a Service)**  
+  Anwendungen laufen in Containern auf der Cloud-Infrastruktur.  
+  Beispiele: Docker, Kubernetes.
 
+### Cloud-Arten
+- **Public Cloud:** Dienste über das Internet
+- **Private Cloud:** innerhalb eines Unternehmens
+- **Lokale Virtualisierung:** auf einem einzelnen Rechner
 
-    Infrastructure as Code (IaC) ist eine Methode, bei der IT-Infrastruktur automatisch über Code verwaltet und bereitgestellt wird. Anstatt Systeme manuell einzurichten, werden alle Einstellungen und Konfigurationen in Dateien definiert, überprüft und automatisch ausgeführt. Dadurch entstehen konsistente und wiederholbare Systeme.
+### Vorteile der Cloud
+- Schnelle Bereitstellung von Ressourcen
+- Automatisierung
+- Skalierbarkeit
+- Weniger Hardware-Abhängigkeit
 
-    IaC nutzt bewährte Methoden aus der Softwareentwicklung, wie Versionsverwaltung, testgetriebene Entwicklung sowie kontinuierliche Integration und Auslieferung, um Änderungen sicher und automatisiert umzusetzen.
-    Die Ziele von Infrastructure as Code sind, die IT-Infrastruktur flexibel und einfach anpassbar zu machen. Änderungen sollen schnell und ohne Stress durchgeführt werden können. IT-Mitarbeiter können sich auf wichtige Aufgaben konzentrieren, statt immer wieder die gleichen Arbeiten zu machen. Benutzer können benötigte Ressourcen selbst erstellen, und Systeme lassen sich bei Problemen schnell wiederherstellen. Verbesserungen erfolgen laufend und nicht in grossen, riskanten Projekten.
+---
 
-    Folgende Arten von Tools werden für IaC benötigt:
-    - Infrastructure Definition Tools
-    - Server Configuration Tools
-    - Package Management Tools
-    - Scripting Tools
-    - Versionsverwaltung & Hubs
+## Infrastructure as Code (IaC)
 
+Infrastructure as Code bedeutet, dass IT-Infrastruktur über Code definiert und automatisch bereitgestellt wird.  
+Statt manueller Einrichtung werden Konfigurationen in Dateien gespeichert und automatisiert ausgeführt.
 
+### Vorteile von IaC
+- Wiederholbare Systeme
+- Automatisierung
+- Schnellere Änderungen
+- Einfachere Wiederherstellung
 
-Vagrant:
-    Vagrant ist eine Open-Source-Anwendung in Ruby, mit der man virtuelle Maschinen erstellen und verwalten kann. Sie dient als Verbindung zwischen Virtualisierungsprogrammen wie VirtualBox, VMware oder Hyper-V und Konfigurationswerkzeugen wie Chef, SaltStack oder Puppet. Die virtuellen Maschinen verhalten sich dabei wie echte, lauffähige Server.
-
-    - vagrant init	Initialisiert im aktuellen Verzeichnis eine Vagrant-Umgebung und erstellt, falls nicht vorhanden, ein Vagrantfile
-    - vagrant up	Erzeugt und Konfiguriert eine neue Virtuelle Maschine, basierend auf dem Vagrantfile
-    - vagrant ssh	Baut eine SSH-Verbindung zur gewünschten VM auf
-    - vagrant status	Zeigt den aktuellen Status der VM an
-    - vagrant port	Zeigt die Weitergeleiteten Ports der VM an
-    - vagrant halt	Stoppt die laufende Virtuelle Maschine
-    - vagrant destroy	Stoppt die Virtuelle Maschine und zerstört sie.
-
-
-    Boxen sind bei Vagrant vorkonfigurierte virtuelle Maschinen, also fertige Vorlagen. Sie helfen dabei, Software schneller zu verteilen und Entwicklungsumgebungen rasch einzurichten. Eine Box wird beim ersten Verwenden auf den Computer heruntergeladen und danach lokal gespeichert, sodass sie nicht jedes Mal neu aus dem Internet geladen werden muss.
-    Boxen können mit Befehlen wie vagrant box add hinzugefügt und mit vagrant box remove wieder gelöscht werden. Der Name einer Box folgt meist dem Muster Entwickler/Box, zum Beispiel ubuntu/xenial64. Über die Vagrant-Box-Plattform kann man nach bestehenden Boxen suchen oder eigene veröffentlichen.
-
-    Die ganze Konfiguration wird im Vagrantfile gemacht, das im entsprechenden Ordner liegt. Die Schreibweise orientiert sich an der Programmiersprache Ruby:
-        Vagrant.configure("2") do |config|
-        config.vm.define :apache do |web|
-            web.vm.box = "bento/ubuntu-16.04"
-            web.vm.provision :shell, path: "config_web.sh"
-            web.vm.hostname = "srv-web"
-            web.vm.network :forwarded_port, guest: 80, host: 4567
-            web.vm.network "public_network", bridge: "en0: WLAN (AirPort)"
-    end
+### Typische IaC-Toolarten
+- Infrastructure Definition Tools
+- Server Configuration Tools
+- Package Management Tools
+- Scripting Tools
+- Versionsverwaltung
 
 
-    Provisioning:
-    Provisioning bedeutet bei Vagrant, dass Anweisungen an ein anderes Programm weitergegeben werden, meist an eine Shell wie Bash. Mit diesen Befehlen kann zum Beispiel automatisch der Webserver Apache installiert werden:
-      config.vm.provision :shell, inline: <<-SHELL 
-        sudo apt-get update
-        sudo apt-get -y install apache2
-     SHELL
+
+
+## Vagrant
+
+Vagrant ist eine Open-Source-Anwendung zur Erstellung und Verwaltung von virtuellen Maschinen.  
+Es verbindet Virtualisierungssoftware wie VirtualBox, VMware oder Hyper-V mit Konfigurations- und Automatisierungstools.
+
+---
+
+### Wichtige Befehle
+
+```bash
+vagrant init        # Vagrant-Umgebung erstellen
+vagrant up          # VM starten und konfigurieren
+vagrant ssh         # Verbindung zur VM herstellen
+vagrant status      # Status anzeigen
+vagrant port        # Weitergeleitete Ports anzeigen
+vagrant halt        # VM stoppen
+vagrant destroy     # VM löschen
+```
+
+---
+
+### Boxen
+Boxen sind vorkonfigurierte virtuelle Maschinen (Vorlagen).
+
+Beispiele:
+
+```bash
+vagrant box add ubuntu/xenial64
+vagrant box list
+vagrant box remove <box-name>
+```
+
+---
+
+### VM erstellen
+
+```bash
+mkdir myserver
+cd myserver
+vagrant init ubuntu/xenial64
+vagrant up
+```
+
+Status anzeigen:
+
+```bash
+vagrant status
+```
+
+VM aktualisieren:
+
+```bash
+vagrant provision
+```
+
+VM löschen:
+
+```bash
+vagrant destroy -f
+```
+
+---
+
+### Vagrantfile (Beispiel)
+
+Die Konfiguration erfolgt im **Vagrantfile**:
+
+```ruby
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-16.04"
+  config.vm.hostname = "srv-web"
+  config.vm.network :forwarded_port, guest: 80, host: 4567
+end
+```
+
+---
+
+### Provisioning (Beispiel)
+
+Automatische Installation von Software:
+
+```ruby
+config.vm.provision :shell, inline: <<-SHELL
+  sudo apt-get update
+  sudo apt-get -y install apache2
+SHELL
+```
+
+---
+
+### Provider (Beispiel)
+
+Festlegen der Virtualisierungsplattform:
+
+```ruby
+config.vm.provider "virtualbox" do |vb|
+  vb.memory = "512"
+end
+```
+
+---
+
+### Synced Folders
+
+Synchronisierte Ordner verbinden Host und VM:
+
+```ruby
+config.vm.synced_folder ".", "/var/www/html"
+```
+
+Damit kann z.B. das Webverzeichnis der VM direkt vom Host bearbeitet werden.
+
+
+## Reflexion
+
+Cloud Computing bedeutet, dass Programme und Daten auf entfernten Servern statt auf dem eigenen Computer laufen. Dadurch können Anwendungen von überall über das Internet genutzt werden.
+
+Dynamische Infrastruktur-Plattformen stellen virtualisierte Ressourcen wie Rechenleistung, Speicher und Netzwerke bereit. Diese werden automatisch verwaltet und meist als virtuelle Maschinen zur Verfügung gestellt.
+
+Damit **Infrastructure as Code (IaC)** eingesetzt werden kann, müssen folgende Voraussetzungen erfüllt sein:
+
+- Infrastruktur ist über Schnittstellen programmierbar
+- Ressourcen können schnell erstellt und gelöscht werden
+- Nutzer können Systeme selbst verwalten
+- Wechsel zwischen Anbietern ist möglich
+- Sicherheitsstandards und Zertifizierungen sind gewährleistet
+
+
+## LB2 – Hands-on
+
+Zuerst habe ich **Git Bash** geöffnet, in mein Arbeitsverzeichnis gewechselt und mit folgenden Befehlen eine neue VM erstellt:
+
+```bash
+mkdir myvm
+cd myvm
+vagrant init
+vagrant up
+```
+
+![MyVM-Erstellung](images/myvm_erstellung.png)
+
+  Die VM hat sich während der Einrichtung aufgehängt und ich konnte nicht weiterarbeiten.  
+Mit folgendem Befehl konnte das Problem behoben werden:
+
+```bash
+vagrant reload --provision
+```
+![Problem gelöst](images/vagrant-reload.png)
+
+Danach war eine Verbindung per SSH wieder möglich:
+
+```bash
+vagrant ssh
+```
+![ssh](<images/vagrant ssh.png>)
+
+
+
+ Anschliessend musste ich die Serverdienste installieren.  
+Zuerst habe ich **Apache** installiert. Wichtig ist die Option `-y`, damit die Installation automatisch bestätigt wird:
+
+```bash
+sudo apt-get update
+sudo apt-get -y install apache2
+```
+
+![Apache2](images/apache2.png)
+
+  Anschliessend habe ich den **Webalizer** installiert:
+
+```bash
+sudo apt-get -y install webalizer
+```
+
+![webalizer](images/webalizer.png)
   
+  Danach habe ich den Befehlsverlauf angezeigt:
 
-    Provider:
-    Der Provider im Vagrantfile legt fest, welche Virtualisierungsplattform verwendet wird, zum Beispiel VirtualBox.
-    config.vm.provider "virtualbox" do |vb|
-        vb.memory = "512"  
-    end
+```bash
+history
+```
 
-    Box hinzufügen:
-      vagrant box add [box-name]
+![verlauf](images/image.png)
 
-    In der lokalen Registry vorhandene Boxen anzeigen:
-      vagrant box list
 
-    VM erstellen:
-          mkdir myserver
-      cd myserver
-      vagrant init ubuntu/xenial64
-      vagrant up
+  ## Feintuning
 
-    Aktueller Status der VM anzeigen:
-          vagrant status
+Damit der **Webalizer** Daten auswerten kann, musste zuerst etwas Traffic erzeugt werden.  
+Dazu habe ich folgende Befehle ausgeführt:
+
+```bash
+curl http://localhost
+curl http://localhost
+curl http://localhost
+```
+
+![Traffic](<images/Traffic webalizer.png>)
+
+  Als Nächstes musste ich die **Access-Logs von Apache rotieren**, da der Webalizer nur Archivdaten auswerten kann:
+
+```bash
+sudo logrotate -f /etc/logrotate.d/apache2
+```
+
+![Logs](images/logs-rotate-webanalizer.png)
+
+  Danach habe ich das **Output-Verzeichnis korrigiert** und anschliessend eine Webalizer-Ausgabe erzeugt:
+
+```bash
+sudo webalizer
+```
+![Ausgabe](images/webalizer-ausgabe.png)
+
+  Zum Schluss habe ich die Auswertung in der **Web-Ansicht** geöffnet:
+
+![Web](images/webalizer2.png)
+
+
+
+## 25 – Sicherheit (Fragen)
+
+### Was ist der Unterschied zwischen einem Webserver und einem Reverse Proxy?
+Ein Webserver liefert HTML-Seiten direkt an den Benutzer.  
+Ein Reverse Proxy steht davor und leitet die Anfragen an den eigentlichen Webserver weiter.
+
+### Was versteht man unter einer White List?
+Eine White List enthält vertrauenswürdige Elemente, während eine Black List unerwünschte Elemente sperrt.
+
+### Was wäre die Alternative zum Absichern einzelner Server mit einer Firewall?
+Eine **zentrale Firewall**.
+
+### Was ist der Unterschied zwischen der Datei `id_rsa` und `id_rsa.pub`?
+- `id_rsa` → Private Key  
+- `id_rsa.pub` → Public Key  
+
+### Wo darf ein SSH-Tunnel nicht angewendet werden?
+Innerhalb der Firma (gemäss Sicherheitsrichtlinien).
+
+### Wozu dient die Datei `authorized_keys`?
+Sie enthält die öffentlichen Schlüssel der Benutzer, die sich ohne Passwort am System anmelden dürfen.
+
+### Wozu dient die Datei `known_hosts`?
+Sie speichert die öffentlichen Schlüssel von Servern, mit denen man sich per SSH verbunden hat.  
+So kann das System prüfen, ob der Server derselbe ist wie beim letzten Verbindungsaufbau und vor Man-in-the-Middle-Angriffen warnen.
+
+## 25 – Sicherheit (Umsetzung)
+
+### Firewall & Reverse Proxy
+Steht eine VM direkt im Internet, sind alle Dienste offen zugänglich und damit unsicher.  
+Eine **Firewall** blockiert unerwünschte Verbindungen, während ein **Reverse Proxy** Anfragen weiterleitet, ohne die echte Serveradresse preiszugeben.
+
+---
+
+### UFW Firewall
+UFW (Uncomplicated Firewall) ist ein einfaches Kommandozeilen-Tool zur Konfiguration der Linux-Firewall.  
+Es dient als benutzerfreundliche Oberfläche für das komplexere System **iptables**.
+
+### Installation und Aktivierung
+
+```bash
+sudo apt-get install ufw
+sudo ufw enable
+```
     
-    VM updaten:
-          vagrant provision
-    
-    VM löschen:
-          vagrant destroy -f
-
-
-    Synced folders:
-    Synchronisierte Ordner erlauben es der virtuellen Maschine, auf Ordner des Host-Systems zuzugreifen. So kann zum Beispiel das HTML-Verzeichnis des Apache-Webservers mit dem Ordner auf dem Host synchronisiert werden, in dem das Vagrantfile liegt.
-
-        Vagrant.configure(2) do |config|
-        config.vm.synced_folder ".", "/var/www/html"  
-    end
-
-
-Reflexion:
-  Cloud Computing bezeichnet das Ausführen von Programmen auf entfernten Rechnern statt auf dem eigenen Computer. Die Anwendungen und Daten liegen dabei auf Servern im Internet und können von überall aus aufgerufen werden.
-
-  Eine dynamische Infrastruktur-Plattform stellt virtualisierte IT-Ressourcen wie Rechenleistung, Speicher und Netzwerke bereit. Diese werden automatisch und programmgesteuert verwaltet, meist in Form von virtuellen Maschinen.
-
-  Damit Infrastructure as Code auf solchen Plattformen eingesetzt werden kann, müssen bestimmte Voraussetzungen erfüllt sein. Die Infrastruktur muss über Schnittstellen programmierbar sein, damit sie automatisiert gesteuert werden kann. Ressourcen sollen bei Bedarf schnell erstellt oder gelöscht werden können. Nutzer müssen ihre Systeme selbst anpassen können, und ein Wechsel zwischen verschiedenen Anbietern sollte möglich sein. Zudem sind Sicherheitsstandards und Zertifizierungen ein wichtiger Bestandteil.
-
-
-LB2 - Hands on:
-  Zuerst bin ich auf GitBash gegangen und in mein Verzeichnis gewechselt und dann mit folgenden Befehlen eine neue VM erstellt:
-![MyVM-Erstellung](myvm_erstellung.png)
-
-  Irgendwie hat sich dann meine VM verfangen und ich konnte nicht fortfahren. Ein einfacher Befehl (vagrant reload--provision) hat dieses Problem gelöst und ich konnte mich dann per ssh verbinden:
-
-![Problem gelöst](vagrant-reload.png)
-![ssh](<vagrant ssh.png>)
-
-
-  Anschliessend musste ich die Serverdienste auswählen. Zuerst habe ich Apache installiert und wichtig mt -y ansonsten funktioniert es nicht:
-
-![Apache2](apache2.png)
-
-  Anschliessend habe ich den Webalizer installiert:
-
-![webalizer](webalizer.png)
-  
-  Dann habe ich den Befehlsverlauf angezeigt:
-
-![verlauf](image.png)
-
-
-  Jetzt geht es ums Feintuning. Damit der Webalizer etwas auswerten kann, musste ich Traffic erzeugen mit folgenden Befehlen:
-
-![Traffic](<Traffic webalizer.png>)
-
-  Als nächstes musste ich Access Logs von Apache rotieren, weil Webanalyzer nur Archivdaten auswertet:
-
-![Rotate Logs](logs-rotate-webanalizer.png)
-
-  Daraufhin habe ich das Output-Verzeichnis korrigiert und anschliessend eine Webalizer-Ausgabe erzeugt:
-
-![Ausgabe](webalizer-ausgabe.png)
-
-  Zum Schluss noch das Ganze auf Web-Ansicht geöffnet:
-
-![webalizer](webalizer2.png)
+  ![UFW Installieren](<images/ufw install.png>)
+  ![UFW aktivieren](<images/ufw enable.png>)
 
 
 
-25-Sicherheit (Fragen)
+### SSH-Port freigeben
 
-    Was ist der Unterschied zwischen einem Web Server und einen Reverse Proxy?
-    Ein Webserver liefert HTML-Seiten direkt an den Benutzer. Ein Reverse Proxy steht davor und leitet die Anfragen an den eigentlichen Webserver weiter.
-  
-    Was verstehen wir unter einer "White List"?
-    Eine White List enthält vertrauenswürdige Elemente, zum Beispiel Server, während eine Black List unerwünschte Elemente sperrt.
+Damit ich mich später nicht selbst aussperre, musste der **SSH-Port** in der Firewall freigegeben werden:
 
-    Was wäre die Alternative zum Absichern der einzelnen Server mit einer Firewall?
-    Eine Zentrale Firewall
-
-    Was ist der Unterschied zwischen der id_rsa und id_rsa.pub Datei?
-    Private und Public Key
-
-    Wo darf ein SSH Tunnel nicht angewendet werden?
-    In der Firma
-
-    Für was dient die Datei authorized_keys?
-    Sie enthält die öffentlichen Schlüssel aller Benutzer, die sich ohne Passwort am System anmelden dürfen.
-  
-    Für was dient die Datei known_hosts?
-    Die Datei speichert die öffentlichen Schlüssel von Servern, mit denen ich mich per SSH verbunden habe. Dadurch kann mein System prüfen, ob der Server wirklich derselbe ist wie beim letzten Verbindungsaufbau, und mich vor möglichen Man-in-the-Middle-Angriffen warnen.
-
-25-Sicherheit (README.md)
-
-    Firewall & Reverse Proxy:
-    Steht eine VM direkt im Internet, sind alle Dienste offen zugänglich und damit unsicher. Eine Firewall blockiert unerwünschte Verbindungen, und ein Reverse Proxy leitet Anfragen weiter, ohne die echte Serveradresse preiszugeben.
-
-    UFW Firewall:
-    UFW ist ein einfaches Kommandozeilen-Tool, um die Linux-Firewall zu konfigurieren. Es ist eine leicht verständliche Oberfläche für das komplexere System iptables.
-
-    Zuerst habe ich UFW installiert und anschliessend die Firewall aktiviert:
-    
-  ![UFW installieren](<ufw install.png>)
-  ![UFW aktivieren](<ufw enable.png>)
-
-    Wichtig für später das ich mich nicht einsperre, muss Port erlaubt werden:
-  ![SSH erlauben](<ssh erlauben.png>)
+```bash
+sudo ufw allow ssh
+```
+  ![SSH erlauben](<images/ssh erlauben.png>)
 
 
-    Anschliessend habe ich FireWall Regeln konfiguriert:
-  ![Status Ports](<fw ports status.png>)
+### Firewall-Regeln konfigurieren
+
+Anschliessend habe ich die **Firewall-Regeln überprüft und konfiguriert**:
+
+```bash
+sudo ufw status
+```  
+  ![Status Ports](<images/fw ports status.png>)
 
 
 
-    Reverse Proxy:
-    Hier habe ich Apache als Reverse Proxy installiert.
-    Zuerst die benötigten Pakete installieren. Ich muss aber die vorherigen Ports dafür freigeben, ansonsten kann ich nichts installieren und laufe in einen Fehler (ist mir passiert):
-  ![alt text](fehler.png)
+### Reverse Proxy
+
+Hier habe ich **Apache als Reverse Proxy** installiert.
+
+Zuerst mussten die benötigten Pakete installiert werden.  
+Wichtig: Die entsprechenden Ports müssen vorher in der Firewall freigegeben werden, sonst kommt es zu einem Installationsfehler (ist mir passiert).
+
+```bash
+sudo apt-get install apache2
+```
+![Fehler](images/fehler.png)
 
 
 
