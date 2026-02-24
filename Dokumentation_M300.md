@@ -1617,10 +1617,110 @@ docker run -d --name ghost \
   ghost:1-alpine
 ```
 
+## 50 - Projekte
+### docker-minecraft-server
 
+Als erstes habe ich Docker Desktop lokal installiert und anschliessend die Version überprüft:
+```bash
+docker --version
+```
 
+![docker-version](images/docker-versions.png)
 
+Um eine gute Übersicht zu haben, habe ich eine Ordnerstruktur erstellt:
+```bash
+mkdir minecraft-docker
+cd minecraft-docker
+```
 
+Anschliessend habe ich VS Code im Projektordner geöffnet und eine Datei `compose.yml` erstellt:
+
+![compose.yml](images/compose.yml-minecraft-server.png)
+
+In der Konfiguration wurde das Image `itzg/minecraft-server` verwendet, welches bereits einen fertigen Minecraft-Server enthält. Zusätzlich wurden wichtige Einstellungen definiert wie:
+- EULA akzeptieren  
+- Minecraft Version  
+- Portfreigabe (25565)  
+
+---
+
+### Server starten und testen
+
+Danach habe ich den Server gestartet:
+```bash
+docker compose up -d
+```
+
+Docker hat den Server automatisch eingerichtet und gestartet.  
+Mit folgendem Befehl habe ich überprüft, ob alles läuft:
+```bash
+docker ps
+```
+
+Zusätzlich habe ich die Logs kontrolliert:
+```bash
+docker logs -f minecraft-server
+```
+
+![logs-docker](images/docker-logs.png)
+
+---
+
+### Externer Zugriff (Playit)
+
+Da in der Schule keine Portweiterleitung möglich ist, habe ich Playit.gg verwendet.  
+Dieses Tool erstellt einen Tunnel, damit andere von ausserhalb auf den Server zugreifen können.
+
+![playit.gg](images/playitt.gg.png)
+
+Ich habe Playit installiert, den Claim-Code eingegeben und einen Tunnel erstellt.  
+Danach habe ich eine öffentliche Server-Adresse erhalten.
+
+Diese Adresse habe ich einem Kollegen geschickt.  
+Er konnte sich erfolgreich mit meinem Minecraft-Server verbinden.
+
+![login-jannis](images/login-minecraft-jannis.png)  
+![Jannis-Spielwiese](images/jannis-spielwiese.png)
+
+---
+
+### Persistenz testen
+
+Um die Persistenz zu testen, habe ich im Spiel Fortschritt erstellt (z.B. Bauwerk und Inventar).
+
+Danach habe ich den Container gestoppt:
+```bash
+docker compose stop
+```
+
+Und wieder gestartet:
+```bash
+docker compose up -d
+```
+
+Da der Ordner `./data` als Volume eingebunden ist, bleiben alle Daten erhalten.  
+Nach dem Neustart konnte sich mein Kollege erneut verbinden und der Fortschritt war weiterhin vorhanden.
+
+![inventar](images/inventar-minecarft.png)  
+![dir data](images/dir.data.png)
+
+---
+
+### Fazit
+
+Ich habe Docker verwendet, da Container einfach und schnell sind. Das Image enthält bereits einen fertigen Minecraft-Server.
+
+Da keine Portweiterleitung möglich war, habe ich Playit.gg genutzt. Damit ist der Server von aussen erreichbar, ohne Ports zu öffnen.
+
+Der Server läuft lokal im Docker-Container und wird über Playit ins Internet verbunden. Mein Kollege konnte sich erfolgreich verbinden und es gab keine Probleme.
+
+Alternativ wären Portforwarding oder Cloud möglich, wurden aber nicht genutzt.
+
+Der Server funktioniert und ist sicher erreichbar.
+
+Für das Monitoring habe ich "Healthcheck" verwendet. Das habe ich ganz einfach im compose-File erstellt:
+
+![Healthcheck](images/healthcheck.png)
 
 
 
