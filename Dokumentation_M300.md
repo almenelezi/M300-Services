@@ -153,9 +153,19 @@ _Dokumentation Modul 300 von Almen Elezi_
     - [Container sichern \& beschränken](#container-sichern--beschränken)
     - [Kontinuierliche Integration](#kontinuierliche-integration)
     - [README.md](#readmemd)
-  - [01 - Protokollieren \& Überwachen](#01---protokollieren--überwachen)
-  - [02 - Container sichern \& beschränken](#02---container-sichern--beschränken)
-  - [03 - Kontinuierliche Integration](#03---kontinuierliche-integration)
+    - [01 - Protokollieren \& Überwachen](#01---protokollieren--überwachen)
+    - [02 - Container sichern \& beschränken](#02---container-sichern--beschränken)
+    - [03 - Kontinuierliche Integration](#03---kontinuierliche-integration)
+  - [40 - Kubernetes](#40---kubernetes)
+    - [Fragen](#fragen-2)
+    - [Objekte (Ressourcen)](#objekte-ressourcen)
+    - [Wichtige Begriffe](#wichtige-begriffe)
+    - [Ergänzende Grundlagen](#ergänzende-grundlagen)
+    - [Service Discovery](#service-discovery)
+    - [Vernetzung](#vernetzung)
+    - [Load Balancing](#load-balancing)
+    - [Cluster](#cluster)
+    - [Wichtige Kubernetes-Eigenschaften](#wichtige-kubernetes-eigenschaften)
 
 ---
 
@@ -1871,11 +1881,15 @@ Da keine Portweiterleitung möglich war, habe ich Playit.gg genutzt. Damit ist d
 
 Der Server läuft lokal im Docker-Container und wird über Playit ins Internet verbunden. Mein Kollege konnte sich erfolgreich verbinden und es gab keine Probleme.
 
-Alternativ wären Portforwarding oder Cloud möglich, wurden aber nicht genutzt.
+Alternativ wären Portforwarding oder Cloud möglich gewesen, wurden aber nicht genutzt.
 
 Der Server funktioniert und ist sicher erreichbar.
 
-Für das Monitoring habe ich "Healthcheck" verwendet. Das habe ich ganz einfach im compose-File erstellt:
+Für das Monitoring habe ich "Healthcheck" verwendet. Das habe ich ganz einfach im compose-File erstellt.
+
+Der Zweck dieses Projekts war es, einen funktionierenden Game-Server mit Docker aufzusetzen und dabei moderne Technologien wie Container und Tunnel-Dienste kennenzulernen.
+
+Gleichzeitig löse ich damit die Dienstleistung, einen Minecraft-Server bereitzustellen, der einfach zugänglich, schnell startbereit und ohne komplizierte Netzwerkkonfiguration nutzbar ist. Dadurch können mehrere Benutzer von überall darauf zugreifen.
 
 ![Healthcheck](images/healthcheck.png)
 
@@ -1922,7 +1936,7 @@ Automatisch bei Änderungen im Git-Repository.
 
 ###  README.md
 
-## 01 - Protokollieren & Überwachen
+### 01 - Protokollieren & Überwachen
 
 Das Überwachen und Protokollieren von Containern ist wichtig, um Fehler schnell zu erkennen und Probleme zu beheben.  
 Besonders bei Microservices wird das System komplexer, deshalb braucht man zentrale Logs.
@@ -1939,7 +1953,7 @@ Für Monitoring gibt es Tools wie **cAdvisor**, die CPU, RAM und Auslastung anze
 
 ---
 
-## 02 - Container sichern & beschränken
+### 02 - Container sichern & beschränken
 
 Container müssen gut abgesichert werden, da sie den gleichen Kernel wie der Host nutzen.  
 Mögliche Risiken sind:
@@ -1965,7 +1979,7 @@ Weitere Schutzmassnahmen:
 
 ---
 
-## 03 - Kontinuierliche Integration 
+### 03 - Kontinuierliche Integration 
 
 Continuous Integration (CI) bedeutet, dass Code automatisch getestet und gebaut wird.  
 Ziel ist bessere Softwarequalität.
@@ -1989,6 +2003,90 @@ Jobs werden oft automatisch gestartet, z.B. bei Änderungen im Git-Repository.
 Ein **Unittest** prüft einzelne Teile (Module) eines Programms auf korrekte Funktion.
 
 
+## 40 - Kubernetes
+
+### Fragen
+
+**Was ist Kubernetes?**  
+Ein Tool, um viele Container automatisch zu verwalten.
+
+**Was ist die Hauptaufgabe von Kubernetes?**  
+Container starten, steuern und verteilen.
+
+**Wer ist der Eigentümer von Kubernetes?**  
+Die Cloud Native Computing Foundation (CNCF).
+
+**Was für eine Netzwerkstruktur verwendet Kubernetes?**  
+Ein flaches Netzwerk, alle Container können direkt miteinander sprechen.
+
+**Über was kommunizieren die Nodes?**  
+Über ein Overlay-Netzwerk.
+
+---
+
+### Objekte (Ressourcen)
+
+**In welchem Format werden Kubernetes Objekte beschrieben?**  
+YAML
+
+**Mit welchem Tool werden sie verwaltet?**  
+Mit `kubectl`
+
+**Wie werden Objekte gruppiert?**  
+Mit Labels
+
+---
+
+### Wichtige Begriffe
+
+**Was sind Pods?**  
+Kleine Gruppe von Containern, die zusammen laufen.
+
+**Was sind Services?**  
+Verbinden mehrere Pods und machen sie erreichbar.
+
+**Was ist ein Ingress?**  
+Erlaubt Zugriff von aussen auf Services (wie ein Reverse Proxy).
+
+**Was sind Namespaces?**  
+Trennen den Cluster in Bereiche.
+
+**Was macht ein ReplicaSet?**  
+Sorgt dafür, dass immer genug Pods laufen.
+
+**Für was sind Deployments?**  
+Zum Aktualisieren und Verwalten von Containern.
+
+---
+
+### Ergänzende Grundlagen
+
+### Service Discovery
+Ermöglicht Clients, automatisch die richtige Service-Instanz (IP + Port) zu finden – besonders wichtig in verteilten Systemen wie Kubernetes.
+
+### Vernetzung
+Container werden logisch über Netzwerke verbunden, sodass sie miteinander kommunizieren können.
+
+**Typische Funktionen:**
+- Health Checks  
+- Failover  
+- Load Balancing  
+- Verschlüsselung  
+- Isolation  
+
+### Load Balancing
+Verteilt Anfragen auf mehrere Pods/Container, um Leistung und Stabilität zu verbessern.
+
+### Cluster
+Ein Cluster ist eine Gruppe vernetzter Computer (Nodes), die zusammenarbeiten:
+- Leistungssteigerung (HPC)  
+- Hochverfügbarkeit (HA)  
+
+### Wichtige Kubernetes-Eigenschaften
+- Selbstheilend (Container werden bei Fehlern neu gestartet)  
+- Skalierbar (mehr/weniger Pods je nach Bedarf)  
+- Deklarative Konfiguration (gewünschter Zustand wird definiert)  
+- Infrastruktur wird abstrahiert (nicht einzelne Server im Fokus)  
 
 
 
