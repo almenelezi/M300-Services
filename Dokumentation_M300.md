@@ -148,6 +148,14 @@ _Dokumentation Modul 300 von Almen Elezi_
     - [Externer Zugriff (Playit)](#externer-zugriff-playit)
     - [Persistenz testen](#persistenz-testen)
     - [Fazit](#fazit)
+  - [35 - Sicherheit](#35---sicherheit)
+    - [Fragen](#fragen-1)
+    - [Container sichern \& beschränken](#container-sichern--beschränken)
+    - [Kontinuierliche Integration](#kontinuierliche-integration)
+    - [README.md](#readmemd)
+  - [01 - Protokollieren \& Überwachen](#01---protokollieren--überwachen)
+  - [02 - Container sichern \& beschränken](#02---container-sichern--beschränken)
+  - [03 - Kontinuierliche Integration](#03---kontinuierliche-integration)
 
 ---
 
@@ -1872,7 +1880,113 @@ Für das Monitoring habe ich "Healthcheck" verwendet. Das habe ich ganz einfach 
 ![Healthcheck](images/healthcheck.png)
 
 
+## 35 - Sicherheit
 
+### Fragen
+
+**Warum sollten Container überwacht werden?**  
+Damit man Fehler oder zu hohe Auslastung früh erkennt.
+
+**Was ist das syslog und wo ist es zu finden?**  
+Ein zentrales System-Log in Linux, meist unter `/var/log`.
+
+**Was ist stdout, stderr, stdin?**  
+Standard-Ausgabe, Fehler-Ausgabe und Eingabe.
+
+---
+
+### Container sichern & beschränken
+
+**Wie kann dieser Befehl verhindert werden?**  
+Nur `root` darf Container starten.
+
+**Wie können verschiedene Mandanten getrennt werden?**  
+Mit virtuellen Maschinen (VMs).
+
+**Wie kann der Ressourcenverbrauch eingeschränkt werden?**  
+Mit Docker-Limits (CPU, RAM usw.).
+
+---
+
+### Kontinuierliche Integration
+
+**Welche Funktionen kann Jenkins übernehmen?**  
+Tests ausführen, Software bauen, Jobs automatisieren.
+
+**Wie baut man Modultests?**  
+Mit Skripten (z.B. Bash).
+
+**Wie können Jenkins Jobs noch gesteuert werden?**  
+Automatisch bei Änderungen im Git-Repository.
+
+
+###  README.md
+
+## 01 - Protokollieren & Überwachen
+
+Das Überwachen und Protokollieren von Containern ist wichtig, um Fehler schnell zu erkennen und Probleme zu beheben.  
+Besonders bei Microservices wird das System komplexer, deshalb braucht man zentrale Logs.
+
+Standardmässig speichert Docker alles, was über **stdout** und **stderr** ausgegeben wird.  
+Diese Logs können mit `docker logs` angeschaut werden.
+
+Es gibt verschiedene Logging-Arten:
+- `json-file` (Standard)
+- `syslog` (System-Log vom Host)
+- `none` (kein Logging)
+
+Für Monitoring gibt es Tools wie **cAdvisor**, die CPU, RAM und Auslastung anzeigen.
+
+---
+
+## 02 - Container sichern & beschränken
+
+Container müssen gut abgesichert werden, da sie den gleichen Kernel wie der Host nutzen.  
+Mögliche Risiken sind:
+- Überlastung (DoS)
+- Zugriff auf Host (Breakout)
+- Unsichere Images
+- Gestohlene Zugangsdaten
+
+Wichtige Sicherheitsregeln:
+- Container nicht als `root` laufen lassen
+- Ressourcen (CPU, RAM) begrenzen
+- Nur nötige Ports öffnen
+- Images aus sicheren Quellen nutzen
+- Systeme regelmässig aktualisieren
+
+Wichtig: Wer Docker nutzen darf, hat praktisch **root-Zugriff** auf den Host.
+
+Weitere Schutzmassnahmen:
+- Read-Only Dateisysteme
+- Benutzer mit wenig Rechten
+- Netzwerkzugriffe einschränken
+- Monitoring und Alerts einsetzen
+
+---
+
+## 03 - Kontinuierliche Integration 
+
+Continuous Integration (CI) bedeutet, dass Code automatisch getestet und gebaut wird.  
+Ziel ist bessere Softwarequalität.
+
+Typische Schritte:
+- Code zusammenführen
+- Tests automatisch ausführen
+- Software bauen
+
+Tools:
+- **Jenkins** (sehr verbreitet)
+- **Travis CI**
+
+Jenkins kann:
+- Builds ausführen
+- Tests starten
+- Docker Images erstellen
+
+Jobs werden oft automatisch gestartet, z.B. bei Änderungen im Git-Repository.
+
+Ein **Unittest** prüft einzelne Teile (Module) eines Programms auf korrekte Funktion.
 
 
 
